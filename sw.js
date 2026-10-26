@@ -1,6 +1,6 @@
 /* BHC Rx service worker: keeps the app working offline. Caches only the app's
    own files; prescriptions live in IndexedDB on the device and never pass here. */
-const CACHE = 'bhc-rx-2026.10.26.1';
+const CACHE = 'bhc-rx-2026.10.26.5';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
